@@ -5,5 +5,24 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-explore-container name="Calendário"></app-explore-container>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-datetime
+          size="cover"
+          locale="pt-BR"
+          presentation="date"
+          [firstDayOfWeek]="1"
+          [showDefaultTitle]="true"
+          [formatOptions]="{
+            time: { hour: '2-digit', minute: '2-digit' },
+            date: { day: '2-digit', month: 'long', weekday:'long' },
+          }"
+          (ionChange)="onSelectDate($event)"
+        >
+          <span slot="title">Seleciona uma data</span>
+        </ion-datetime>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
