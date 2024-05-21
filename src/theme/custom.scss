@@ -1,0 +1,23 @@
+ion-loading.animation-background-default {
+  .loading-wrapper {
+    background: #ffffff;
+    color: #262626;
+  }
+}
+
+ion-loading.animation-background-transparent {
+  .loading-wrapper {
+    background: transparent;
+    box-shadow: none;
+
+    ion-spinner {
+      transform: scale(3);
+      color: #0054e9e0;
+    }
+  }
+
+  ion-backdrop {
+    opacity: 0.4 !important;
+    background-color: #00000078;
+  }
+}

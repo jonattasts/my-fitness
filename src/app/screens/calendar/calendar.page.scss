@@ -5,3 +5,44 @@ ion-datetime {
   border-radius: 16px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 15px -3px;
 }
+
+ion-datetime::part(calendar-day) {
+  border-color: transparent;
+}
+
+ion-datetime::part(today) {
+  border-color: #307cff !important;
+}
+
+ion-datetime::part(active) {
+  box-shadow: 0px 0px 0px 4px rgb(0 84 233 / 0.2);
+}
+
+ion-datetime::part(date-danger) {
+  color: #ad000dd9;
+
+  border-color: transparent;
+  background-color: #f3afb4;
+}
+
+ion-datetime::part(date-warning) {
+  color: #846501fc;
+
+  border-color: transparent;
+  background-color: #edd690;
+}
+
+ion-datetime::part(date-success) {
+  color: #09721b;
+
+  border-color: transparent;
+  background-color: #c8e5d0;
+}
+
+ion-datetime::part(calendar-day):focus {
+  color: #ffffff;
+
+  background-color: #307cff;
+  box-shadow: 0px 0px 0px 4px rgb(0 84 233 / 0.2);
+  border-color: transparent;
+}
