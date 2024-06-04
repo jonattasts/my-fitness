@@ -12,19 +12,27 @@ import { DateUtil } from 'src/app/shared';
   styleUrls: ['calendar.page.scss'],
 })
 export class CalendarPage {
+  public selectedDate: string;
+  public welcomeMessage: string;
+
   public highlightedDates = [
     {
-      date: '2024-05-20',
+      date: '2024-06-03',
       textColor: '#ad000dd9',
       backgroundColor: '#f3afb4',
     },
     {
-      date: '2024-05-21',
+      date: '2024-06-04',
       textColor: '#09721b',
       backgroundColor: '#c8e5d0',
     },
     {
-      date: '2024-05-22',
+      date: '2024-06-05',
+      textColor: '#846501fc',
+      backgroundColor: '#edd690',
+    },
+    {
+      date: '2024-07-05',
       textColor: '#846501fc',
       backgroundColor: '#edd690',
     },
@@ -36,6 +44,25 @@ export class CalendarPage {
     private platform: Platform,
     private loadingCtrl: LoadingController
   ) {}
+
+  ngOnInit() {
+    let weather = '';
+    const userName = 'Jhon';
+
+    const time = moment().hours();
+
+    switch (true) {
+      case time < 18:
+        weather = '🌞';
+        break;
+
+      default:
+        weather = '🌚';
+        break;
+    }
+
+    this.welcomeMessage = `${userName}! ${weather}`;
+  }
 
   async ionViewDidEnter() {
     const loading = await this.loadingCtrl.create({
@@ -58,86 +85,13 @@ export class CalendarPage {
       if (this.platform.is('ios')) {
         dateTimeHeaderDiv?.setAttribute('style', 'color: #666666');
       }
-
-      const datesTraining = [
-        {
-          day: '20',
-          month: '05',
-          year: '2024',
-          date: '2024-05-20',
-          fullDate: 'segunda-feira, 20 de maio',
-          training: { status: false },
-        },
-        {
-          day: '21',
-          month: '05',
-          year: '2024',
-          date: '2024-05-21',
-          fullDate: 'terça-feira, 21 de maio',
-          training: { status: true },
-        },
-        {
-          day: '22',
-          month: '05',
-          year: '2024',
-          date: '2024-05-22',
-          fullDate: 'quarta-feira, 22 de maio',
-          training: { status: false },
-        },
-      ];
-
-      datesTraining.forEach((dateTraining) => {
-        const ariaLabel =
-          dateTraining.date === moment().format('YYYY-MM-DD')
-            ? `Today, ${dateTraining.fullDate}`
-            : dateTraining.fullDate;
-
-        if (shadowRoot.querySelector(`[aria-label="${ariaLabel}"]`)) {
-          switch (true) {
-            case this.checkValidityDate(dateTraining.date) === 'expired' &&
-              !dateTraining.training.status:
-              shadowRoot
-                .querySelector(`[aria-label="${ariaLabel}"]`)
-                .setAttribute('part', 'calendar-day date-danger');
-              break;
-
-            case this.checkValidityDate(dateTraining.date) === 'expired' &&
-              dateTraining.training.status:
-              shadowRoot
-                .querySelector(`[aria-label="${ariaLabel}"]`)
-                .setAttribute('part', 'calendar-day date-success');
-              break;
-
-            case this.checkValidityDate(dateTraining.date) === 'today' &&
-              !dateTraining.training.status:
-              shadowRoot
-                .querySelector(`[aria-label="${ariaLabel}"]`)
-                .setAttribute('part', 'calendar-day today date-warning');
-              break;
-
-            case this.checkValidityDate(dateTraining.date) === 'today' &&
-              dateTraining.training.status:
-              shadowRoot
-                .querySelector(`[aria-label="${ariaLabel}"]`)
-                .setAttribute('part', 'calendar-day today date-success');
-              break;
-
-            case this.checkValidityDate(dateTraining.date) === 'pendig' &&
-              !dateTraining.training.status:
-              shadowRoot
-                .querySelector(`[aria-label="${ariaLabel}"]`)
-                .setAttribute('part', 'calendar-day date-warning');
-              break;
-          }
-        }
-      });
     }
   }
 
   public onSelectDate(event: any) {
-    console.log(event.detail);
+    const date = moment(event.target.value).format('YYYY-MM-DD');
 
-    console.log(event);
+    this.selectedDate = date;
   }
 
   private checkValidityDate(date: string, show = false) {
@@ -159,5 +113,13 @@ export class CalendarPage {
       default:
         return 'pendig';
     }
+  }
+
+  public addTraining() {
+    console.log('addTraining to', this.selectedDate);
+  }
+
+  public showTrainings() {
+    console.log('seeTrainings from', this.selectedDate);
   }
 }

@@ -1,10 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title class="ion-text-center"><h1>Calendário</h1></ion-title>
+    <ion-title class="ion-text-center">
+      <h1>Olá <ion-text>{{welcomeMessage}}</ion-text></h1>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" [fullscreen]="true">
+<ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row>
       <ion-col size="12">
@@ -24,6 +26,16 @@
         >
           <span slot="title">Seleciona uma data</span>
         </ion-datetime>
+
+        <ion-buttons *ngIf="selectedDate">
+          <ion-button *ngIf="true" color="primary" (click)="addTraining()"
+            >Adicionar treino</ion-button
+          >
+
+          <ion-button *ngIf="false" color="primary" (click)="showTrainings()">
+            Ver treinos
+          </ion-button>
+        </ion-buttons>
       </ion-col>
     </ion-row>
   </ion-grid>
