@@ -10,10 +10,14 @@ ion-datetime {
   box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 15px -3px;
 }
 
+ion-datetime.ios-padding {
+  padding: 18px;
+}
+
 ion-buttons {
   position: absolute;
   bottom: 10px;
-  right: 10px;
+  right: 20px;
 }
 
 h1 {

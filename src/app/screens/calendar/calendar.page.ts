@@ -40,7 +40,7 @@ export class CalendarPage {
   @ViewChild('datetime', { read: ElementRef }) datetime!: ElementRef;
 
   constructor(
-    private platform: Platform,
+    public platform: Platform,
     private loadingCtrl: LoadingController
   ) {}
 
@@ -102,7 +102,11 @@ export class CalendarPage {
       dateTimeHeaderDiv?.setAttribute('style', 'background-color: #0054e9e0');
 
       if (this.platform.is('ios')) {
+        const calendarBody = shadowRoot.querySelector('.calendar-body');
+
         dateTimeHeaderDiv?.setAttribute('style', 'color: #666666');
+
+        calendarBody?.setAttribute('style', 'min-height: 300px');
       }
     }
   }
