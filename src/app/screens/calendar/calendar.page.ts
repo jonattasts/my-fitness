@@ -199,6 +199,17 @@ export class CalendarPage {
         this.highlightedDates.push(highlightedDate);
       }
     });
+
+    const todayTrainings = this.dateTranings.find(
+      (dateTraning) =>
+        dateTraning.date === today && dateTraning.trainings.length
+    );
+
+    if (todayTrainings) {
+      this.showTrainingsButton = true;
+    } else {
+      this.showAddTrainingButton = true;
+    }
   }
 
   public onSelectDate(event: any) {
