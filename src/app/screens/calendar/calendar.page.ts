@@ -6,6 +6,23 @@ import * as moment from 'moment';
 
 import { DateUtil } from 'src/app/shared';
 
+import { themeColors } from 'src/theme/colors';
+
+interface dateTraining {
+  date: string;
+  fullDate: string;
+  trainings: {
+    type: string;
+    status: boolean;
+  }[];
+}
+
+interface highlightedDate {
+  date: string;
+  textColor: string;
+  backgroundColor: string;
+}
+
 @Component({
   selector: 'app-calendar-page',
   templateUrl: 'calendar.page.html',
@@ -14,29 +31,7 @@ import { DateUtil } from 'src/app/shared';
 export class CalendarPage {
   public selectedDate: string;
   public welcomeMessage: string;
-
-  public highlightedDates = [
-    {
-      date: '2024-06-03',
-      textColor: '#ad000dd9',
-      backgroundColor: '#f3afb4',
-    },
-    {
-      date: '2024-06-04',
-      textColor: '#09721b',
-      backgroundColor: '#c8e5d0',
-    },
-    {
-      date: '2024-06-05',
-      textColor: '#846501fc',
-      backgroundColor: '#edd690',
-    },
-    {
-      date: '2024-07-05',
-      textColor: '#846501fc',
-      backgroundColor: '#edd690',
-    },
-  ];
+  public highlightedDates: highlightedDate[] = [];
 
   @ViewChild('datetime', { read: ElementRef }) datetime!: ElementRef;
 
@@ -73,6 +68,10 @@ export class CalendarPage {
     });
 
     loading.present();
+
+    this.loadTrainings();
+  }
+
   }
 
   ngAfterViewChecked() {
@@ -86,6 +85,96 @@ export class CalendarPage {
         dateTimeHeaderDiv?.setAttribute('style', 'color: #666666');
       }
     }
+  }
+
+  private loadTrainings() {
+    //TODO: get dateTranings from local storage
+    const dateTranings: dateTraining[] = [
+      {
+        date: '2024-06-03',
+        fullDate: 'segunda-feira, 3 de junho',
+        trainings: [
+          {
+            type: 'Costas',
+            status: false,
+          },
+        ],
+      },
+      {
+        date: '2024-06-04',
+        fullDate: 'terça-feira, 4 de junho',
+        trainings: [
+          {
+            type: 'Bíceps',
+            status: true,
+          },
+        ],
+      },
+      {
+        date: '2024-06-05',
+        fullDate: 'quarta-feira, 5 de junho',
+        trainings: [
+          {
+            type: 'Peito',
+            status: false,
+          },
+        ],
+      },
+    ];
+
+    this.highlightedDates = [];
+
+    dateTranings.forEach((dateTraining) => {
+      if (dateTraining.trainings.length) {
+        let textColor = '';
+        let backgroundColor = '';
+
+        const expiredDate = this.checkValidityDate(dateTraining.date);
+        const pendingTraining = dateTraining.trainings.find(
+          (training) => !training.status
+        );
+
+        switch (true) {
+          case expiredDate === 'expired' && !!pendingTraining:
+            textColor = themeColors.highlightedDateColors.dangerTextColor;
+            backgroundColor =
+              themeColors.highlightedDateColors.dangerbackgroundColor;
+            break;
+
+          case expiredDate === 'expired' && !pendingTraining:
+            textColor = themeColors.highlightedDateColors.successTextColor;
+            backgroundColor =
+              themeColors.highlightedDateColors.successBackgroundColor;
+            break;
+
+          case expiredDate === 'today' && !!pendingTraining:
+            textColor = themeColors.highlightedDateColors.warningTextColor;
+            backgroundColor =
+              themeColors.highlightedDateColors.warningTextColor;
+            break;
+
+          case expiredDate === 'today' && !pendingTraining:
+            textColor = themeColors.highlightedDateColors.successTextColor;
+            backgroundColor =
+              themeColors.highlightedDateColors.successBackgroundColor;
+            break;
+
+          default:
+            textColor = themeColors.highlightedDateColors.warningTextColor;
+            backgroundColor =
+              themeColors.highlightedDateColors.warningBackgroundColor;
+            break;
+        }
+
+        const highlightedDate: highlightedDate = {
+          date: dateTraining.date,
+          textColor,
+          backgroundColor,
+        };
+
+        this.highlightedDates.push(highlightedDate);
+      }
+    });
   }
 
   public onSelectDate(event: any) {
