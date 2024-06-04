@@ -18,7 +18,10 @@ ion-buttons {
 
 h1 {
   font-family: "Nunito";
-  font-weight: 800;
+
+  ion-text {
+    font-weight: 800;
+  }
 }
 
 ion-datetime::part(calendar-day) {
