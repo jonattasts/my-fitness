@@ -29,9 +29,13 @@ interface highlightedDate {
   styleUrls: ['calendar.page.scss'],
 })
 export class CalendarPage {
-  public selectedDate: string;
+  public selectedDate: string | null;
   public welcomeMessage: string;
+  public dateTranings: dateTraining[] = [];
+
   public highlightedDates: highlightedDate[] = [];
+  public showAddTrainingButton: boolean = false;
+  public showTrainingsButton: boolean = false;
 
   @ViewChild('datetime', { read: ElementRef }) datetime!: ElementRef;
 
@@ -72,6 +76,22 @@ export class CalendarPage {
     this.loadTrainings();
   }
 
+  ngAfterViewInit() {
+    document.addEventListener('click', (event) => {
+      setTimeout(() => {
+        const shadowRoot = this.datetime.nativeElement.shadowRoot;
+        const monthToogleIsOpened = shadowRoot.querySelector(
+          `[aria-label="Hide year picker"]`
+        );
+
+        if (monthToogleIsOpened) {
+          this.showAddTrainingButton = false;
+          this.showTrainingsButton = false;
+        } else if (this.selectedDate) {
+          this.toggleTrainingsButton(this.selectedDate);
+        }
+      }, 50);
+    });
   }
 
   ngAfterViewChecked() {
@@ -89,7 +109,7 @@ export class CalendarPage {
 
   private loadTrainings() {
     //TODO: get dateTranings from local storage
-    const dateTranings: dateTraining[] = [
+    this.dateTranings = [
       {
         date: '2024-06-03',
         fullDate: 'segunda-feira, 3 de junho',
@@ -124,7 +144,7 @@ export class CalendarPage {
 
     this.highlightedDates = [];
 
-    dateTranings.forEach((dateTraining) => {
+    this.dateTranings.forEach((dateTraining) => {
       if (dateTraining.trainings.length) {
         let textColor = '';
         let backgroundColor = '';
@@ -181,6 +201,22 @@ export class CalendarPage {
     const date = moment(event.target.value).format('YYYY-MM-DD');
 
     this.selectedDate = date;
+
+    this.toggleTrainingsButton(date);
+  }
+
+  private toggleTrainingsButton(date: string) {
+    const dateTraningSelected = this.dateTranings.find(
+      (dateTraning) => dateTraning.date === date
+    );
+
+    if (dateTraningSelected) {
+      this.showTrainingsButton = true;
+      this.showAddTrainingButton = false;
+    } else {
+      this.showAddTrainingButton = true;
+      this.showTrainingsButton = false;
+    }
   }
 
   private checkValidityDate(date: string, show = false) {
