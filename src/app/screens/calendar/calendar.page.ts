@@ -16,11 +16,12 @@ import { dateTraining, highlightedDate } from 'src/app/interfaces';
   styleUrls: ['calendar.page.scss'],
 })
 export class CalendarPage {
-  public selectedDate: string | null;
+  public selectedDate: string;
   public welcomeMessage: string;
   public dateTranings: dateTraining[] = [];
 
   public highlightedDates: highlightedDate[] = [];
+
   public showAddTrainingButton: boolean = false;
   public showTrainingsButton: boolean = false;
 
@@ -48,22 +49,24 @@ export class CalendarPage {
     }
 
     this.welcomeMessage = `${userName}! ${weather}`;
+    this.selectedDate = moment().format('YYYY-MM-DD');
   }
 
-  async ionViewDidEnter() {
-    const loading = await this.loadingCtrl.create({
-      message: '',
-      spinner: 'bubbles',
-      duration: 2000,
-      cssClass: 'animation-background-transparent',
-    });
-
-    loading.present();
+  ionViewDidEnter() {
+    this.showLoadingAnimation();
 
     this.loadTrainings();
   }
 
   ngAfterViewInit() {
+    this.initializeListeners();
+  }
+
+  ngAfterViewChecked() {
+    this.loadDatetimeStyles();
+  }
+
+  private initializeListeners() {
     document.addEventListener('click', (event) => {
       setTimeout(() => {
         const shadowRoot = this.datetime.nativeElement.shadowRoot;
@@ -74,24 +77,24 @@ export class CalendarPage {
         if (monthToogleIsOpened) {
           this.showAddTrainingButton = false;
           this.showTrainingsButton = false;
-        } else if (this.selectedDate) {
-          this.toggleTrainingsButton(this.selectedDate);
+        } else {
+          this.toggleTrainingsButton();
         }
       }, 50);
     });
   }
 
-  ngAfterViewChecked() {
+  private loadDatetimeStyles() {
     if (this.datetime) {
       const shadowRoot = this.datetime.nativeElement.shadowRoot;
-      const dateTimeHeaderDiv = shadowRoot.querySelector('.datetime-header');
+      const datetimeHeaderDiv = shadowRoot.querySelector('.datetime-header');
 
-      dateTimeHeaderDiv?.setAttribute('style', 'background-color: #0054e9e0');
+      datetimeHeaderDiv?.setAttribute('style', 'background-color: #0054e9e0');
 
       if (this.platform.is('ios')) {
         const calendarBody = shadowRoot.querySelector('.calendar-body');
 
-        dateTimeHeaderDiv?.setAttribute('style', 'color: #666666');
+        datetimeHeaderDiv?.setAttribute('style', 'color: #666666');
 
         calendarBody?.setAttribute('style', 'min-height: 300px');
       }
@@ -100,6 +103,8 @@ export class CalendarPage {
 
   private loadTrainings() {
     //TODO: get dateTranings from local storage
+    const today = moment().format('YYYY-MM-DD');
+
     this.dateTranings = [
       {
         date: '2024-06-03',
@@ -199,28 +204,6 @@ export class CalendarPage {
     }
   }
 
-  public onSelectDate(event: any) {
-    const date = moment(event.target.value).format('YYYY-MM-DD');
-
-    this.selectedDate = date;
-
-    this.toggleTrainingsButton(date);
-  }
-
-  private toggleTrainingsButton(date: string) {
-    const dateTraningSelected = this.dateTranings.find(
-      (dateTraning) => dateTraning.date === date
-    );
-
-    if (dateTraningSelected) {
-      this.showTrainingsButton = true;
-      this.showAddTrainingButton = false;
-    } else {
-      this.showAddTrainingButton = true;
-      this.showTrainingsButton = false;
-    }
-  }
-
   private checkValidityDate(date: string, show = false) {
     const format = DateUtil.getDateFormat(date);
 
@@ -240,6 +223,39 @@ export class CalendarPage {
       default:
         return 'pendig';
     }
+  }
+
+  private toggleTrainingsButton() {
+    const dateTraningSelected = this.dateTranings.find(
+      (dateTraning) => dateTraning.date === this.selectedDate
+    );
+
+    if (dateTraningSelected) {
+      this.showTrainingsButton = true;
+      this.showAddTrainingButton = false;
+    } else {
+      this.showAddTrainingButton = true;
+      this.showTrainingsButton = false;
+    }
+  }
+
+  private async showLoadingAnimation() {
+    const loading = await this.loadingCtrl.create({
+      message: '',
+      spinner: 'bubbles',
+      duration: 2000,
+      cssClass: 'animation-background-transparent',
+    });
+
+    loading.present();
+  }
+
+  public onSelectDate(event: any) {
+    const date = moment(event.target.value).format('YYYY-MM-DD');
+
+    this.selectedDate = date;
+
+    this.toggleTrainingsButton();
   }
 
   public addTraining() {
