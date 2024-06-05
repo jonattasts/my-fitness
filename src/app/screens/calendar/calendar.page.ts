@@ -8,20 +8,7 @@ import { DateUtil } from 'src/app/shared';
 
 import { themeColors } from 'src/theme/colors';
 
-interface dateTraining {
-  date: string;
-  fullDate: string;
-  trainings: {
-    type: string;
-    status: boolean;
-  }[];
-}
-
-interface highlightedDate {
-  date: string;
-  textColor: string;
-  backgroundColor: string;
-}
+import { dateTraining, highlightedDate } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-calendar-page',
