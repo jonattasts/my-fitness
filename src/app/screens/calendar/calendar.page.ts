@@ -174,7 +174,7 @@ export class CalendarPage {
           case expiredDate === 'today' && !!pendingTraining:
             textColor = themeColors.highlightedDateColors.warningTextColor;
             backgroundColor =
-              themeColors.highlightedDateColors.warningTextColor;
+              themeColors.highlightedDateColors.warningBackgroundColor;
             break;
 
           case expiredDate === 'today' && !pendingTraining:
