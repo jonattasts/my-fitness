@@ -24,6 +24,7 @@ export class CalendarPage {
 
   public showAddTrainingButton: boolean = false;
   public showTrainingsButton: boolean = false;
+  public isOpenTrainingModal: boolean = false;
 
   @ViewChild('datetime', { read: ElementRef }) datetime!: ElementRef;
 
@@ -53,7 +54,7 @@ export class CalendarPage {
   }
 
   ionViewDidEnter() {
-    this.showLoadingAnimation();
+    // this.showLoadingAnimation();
 
     this.loadTrainings();
   }
@@ -258,8 +259,8 @@ export class CalendarPage {
     this.toggleTrainingsButton();
   }
 
-  public addTraining() {
-    console.log('addTraining to', this.selectedDate);
+  public toggleTrainingModal(isOpen: boolean) {
+    this.isOpenTrainingModal = isOpen;
   }
 
   public showTrainings() {

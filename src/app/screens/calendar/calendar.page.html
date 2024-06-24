@@ -11,7 +11,7 @@
     <ion-row>
       <ion-col size="12">
         <ion-datetime
-            [ngClass]="platform.is('ios') ? 'ios-padding':''"
+          [ngClass]="platform.is('ios') ? 'ios-padding':''"
           #datetime
           size="cover"
           locale="pt-BR"
@@ -28,11 +28,11 @@
           <span slot="title">Seleciona uma data</span>
         </ion-datetime>
 
-          <ion-buttons id="action-buttons">
+        <ion-buttons id="action-buttons">
           <ion-button
             *ngIf="showAddTrainingButton"
             color="primary"
-            (click)="addTraining()"
+            (click)="toggleTrainingModal(true)"
             >Adicionar treino</ion-button
           >
 
@@ -47,4 +47,9 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <training-modal
+    *ngIf="isOpenTrainingModal"
+    (isModalClosed)="toggleTrainingModal($event)"
+  ></training-modal>
 </ion-content>

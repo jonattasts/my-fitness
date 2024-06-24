@@ -1,0 +1,17 @@
+ion-modal {
+  --border-radius: 6px;
+}
+
+ion-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  height: 56px;
+
+  ion-title {
+    font-family: "Nunito";
+    font-weight: 700;
+  }
+}

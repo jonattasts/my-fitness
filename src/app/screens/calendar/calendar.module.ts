@@ -4,9 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
+import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
+
 import { CalendarPage } from './calendar.page';
 
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
+import { TrainingModal } from './training-modal/training-modal.component';
 
 @NgModule({
   imports: [
@@ -15,6 +17,6 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
     FormsModule,
     ExploreContainerComponentModule,
   ],
-  declarations: [CalendarPage],
+  declarations: [CalendarPage, TrainingModal],
 })
 export class CalendarPageModule {}
