@@ -1,2 +1,15 @@
-// For information on how to create your own theme, please see:
+// Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
+
+/** Ionic CSS Variables **/
+:root {
+  /** Custom Colors **/
+
+  /** success light **/
+  --ion-color-green: #00a891;
+  --ion-color-green-rgb: 0, 168, 145;
+  --ion-color-green-contrast: #ffffff;
+  --ion-color-green-contrast-rgb: 0, 0, 0;
+  --ion-color-green-shade: #009480;
+  --ion-color-green-tint: #1ab19c;
+}
