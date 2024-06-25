@@ -1,0 +1,22 @@
+#welcome-title {
+  font-family: "Poppins Medium";
+  font-size: 2rem;
+  color: #555252;
+}
+
+#welcome-description {
+  font-family: "Poppins Regular";
+  font-size: 1.1rem;
+  color: #555252;
+}
+
+#arrow-forward {
+  --background: #00a891;
+
+  width: 30%;
+  height: 85%;
+
+  ion-icon {
+    font-size: 1.4rem;
+  }
+}
