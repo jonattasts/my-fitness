@@ -12,6 +12,6 @@ export class WelcomePage implements OnInit {
   ngOnInit() {}
 
   public goConfirmantionPage() {
-    this.router.navigate(['confirmation']);
+    this.router.navigate(['register']);
   }
 }

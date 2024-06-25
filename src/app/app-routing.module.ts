@@ -10,6 +10,14 @@ const routes: Routes = [
         (m) => m.WelcomePageModule
       ),
   },
+
+  {
+    path: 'register',
+    loadChildren: () =>
+      import('./screens/register/register.module').then(
+        (m) => m.RegisterModule
+      ),
+  },
   {
     path: 'tabs',
     loadChildren: () =>

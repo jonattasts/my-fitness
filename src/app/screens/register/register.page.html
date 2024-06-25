@@ -1,0 +1,41 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="content">
+    <ion-grid>
+      <ion-row id="confirmation-title">
+        <ion-col class="ion-text-center">
+          <ion-text>
+            <span>😁</span>
+            <br />
+            Como podemos <br />
+            chamar você?
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col offset="1" size="10" id="user-name">
+          <ion-item>
+            <ion-input
+              #userName
+              class="ion-text-center"
+              placeholder="Digite seu nome"
+              color="green"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-margin-top">
+        <ion-col class="ion-text-center">
+          <ion-button
+            shape="round"
+            id="arrow-forward"
+            (click)="goConfirmationPage()"
+          >
+            <ion-text>Confirmar</ion-text>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
