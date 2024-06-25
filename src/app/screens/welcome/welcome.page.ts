@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-welcome',
@@ -7,13 +7,11 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./welcome.page.scss'],
 })
 export class WelcomePage implements OnInit {
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
   public goConfirmantionPage() {
-    this.router.navigate(['tabs/calendar'], {
-      relativeTo: this.activatedRoute,
-    });
+    this.router.navigate(['confirmation']);
   }
 }
