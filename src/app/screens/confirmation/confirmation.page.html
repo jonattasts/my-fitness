@@ -1,0 +1,38 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="content">
+    <ion-grid>
+      <ion-row id="confirmation-title">
+        <ion-col class="ion-text-center">
+          <ion-text>
+            <span>😊</span>
+            <br />
+            Prontinho!
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-text id="confirmation-description">
+            Agora vamos começar a organizar <br />
+            seus treinos com muita <br />
+            dedicação.
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-margin-top">
+        <ion-col class="ion-text-center">
+          <ion-button
+            id="start-button"
+            shape="round"
+            color="green"
+            (click)="goCalendarPage()"
+          >
+            <ion-text>Começar</ion-text>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

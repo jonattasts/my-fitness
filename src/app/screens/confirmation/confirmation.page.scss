@@ -1,0 +1,42 @@
+ion-item {
+  --border-color: #00a891;
+}
+
+ion-input {
+  --color: #7c7676;
+  font-weight: bold;
+}
+
+ion-button {
+  text-transform: none;
+  font-family: "Poppins Regular";
+}
+
+#confirmation-title {
+  margin-bottom: 35px;
+
+  ion-text {
+    font-family: "Poppins Regular";
+    font-size: 1.3rem;
+    color: #555252;
+
+    span {
+      font-size: 3.5rem;
+    }
+  }
+}
+
+#confirmation-description {
+  font-family: "Poppins Regular";
+  font-size: 0.9rem;
+  color: #555252;
+}
+
+#start-button {
+  width: 70%;
+  height: 90%;
+}
+
+.content {
+  margin-top: 40%;
+}

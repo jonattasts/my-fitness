@@ -19,6 +19,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'confirmation',
+    loadChildren: () =>
+      import('./screens/confirmation/confirmation.module').then(
+        (m) => m.ConfirmationPageModule
+      ),
+  },
+  {
     path: 'tabs',
     loadChildren: () =>
       import('./screens/tabs/tabs.module').then((m) => m.TabsPageModule),
