@@ -90,7 +90,7 @@ export class CalendarPage {
       const shadowRoot = this.datetime.nativeElement.shadowRoot;
       const datetimeHeaderDiv = shadowRoot.querySelector('.datetime-header');
 
-      datetimeHeaderDiv?.setAttribute('style', 'background-color: #0054e9e0');
+      datetimeHeaderDiv?.setAttribute('style', 'background-color: #069783');
 
       if (this.platform.is('ios')) {
         const calendarBody = shadowRoot.querySelector('.calendar-body');

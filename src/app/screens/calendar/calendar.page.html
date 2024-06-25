@@ -31,16 +31,11 @@
         <ion-buttons id="action-buttons">
           <ion-button
             *ngIf="showAddTrainingButton"
-            color="primary"
             (click)="toggleTrainingModal(true)"
             >Adicionar treino</ion-button
           >
 
-          <ion-button
-            *ngIf="showTrainingsButton"
-            color="primary"
-            (click)="showTrainings()"
-          >
+          <ion-button *ngIf="showTrainingsButton" (click)="showTrainings()">
             Ver treinos
           </ion-button>
         </ion-buttons>
